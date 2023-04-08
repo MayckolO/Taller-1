@@ -5,6 +5,18 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
+        panel();
+    }
+
+    public static void panel(){
+        double min = -1.0;
+        double max = 1.0;
+
+        StdDraw.setXscale(min,max);
+        StdDraw.setYscale(min,max);
+
+        StdDraw.enableDoubleBuffering();
+
         lineas();
     }
 
@@ -49,18 +61,25 @@ public class Main {
                 velocidadY1  = -velocidadY1;
             }
 
-            x0 += velocidadX0;
-            y0 += velocidadY0;
-            x1 += velocidadX1;
-            y1 += velocidadY1;
-
             int random = (int) (Math.random() * colores.length);
             Color color = colores[random];
             StdDraw.setPenColor(color);
 
-            StdDraw.line(x0,y0,x1,y1);
-            StdDraw.show();
-            StdDraw.pause(200);
+            int contador = 0;
+
+            while (contador < 6){
+                x0 += velocidadX0;
+                y0 += velocidadY0;
+                x1 += velocidadX1;
+                y1 += velocidadY1;
+
+                StdDraw.line(x0,y0,x1,y1);
+                StdDraw.show();
+                StdDraw.pause(100);
+
+                contador++;
+            }
+            StdDraw.clear();
         }
     }
 }
