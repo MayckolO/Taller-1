@@ -5,10 +5,10 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        Lineas();
+        lineas();
     }
 
-    public static void Lineas(){
+    public static void lineas(){
 
         double min = -1.0;
         double max = 1.0;
@@ -20,60 +20,47 @@ public class Main {
 
         Color[] colores = {Color.BLACK,Color.BLUE,Color.CYAN,Color.RED,Color.DARK_GRAY,Color.GREEN,Color.MAGENTA,Color.ORANGE,Color.PINK,Color.YELLOW};
 
-        int contadorLineas = 0;
-
-        double x0 = min + (max- min) * Math.random();
+        double x0 = min + (max - min) * Math.random();
         double y0 = min + (max- min) * Math.random();
 
         double x1 = min + (max- min) * Math.random();
         double y1 = min + (max- min) * Math.random();
 
-        while (contadorLineas < 6){
+        double velocidadX0 = 0.09;
+        double velocidadY0 = 0.03;
+        double velocidadX1 = 0.09;
+        double velocidadY1 = 0.03;
+
+        while (true){
+
+            if(Math.abs(x0 + velocidadX0) > 1.0){
+                velocidadX0  = -velocidadX0;
+            }
+
+            if(Math.abs(y0 + velocidadY0) > 1.0){
+                velocidadY0  = -velocidadY0;
+            }
+
+            if(Math.abs(x1 + velocidadX1) > 1.0){
+                velocidadX1  = -velocidadX1;
+            }
+
+            if(Math.abs(y1 + velocidadY1) > 1.0){
+                velocidadY1  = -velocidadY1;
+            }
+
+            x0 += velocidadX0;
+            y0 += velocidadY0;
+            x1 += velocidadX1;
+            y1 += velocidadY1;
 
             int random = (int) (Math.random() * colores.length);
             Color color = colores[random];
             StdDraw.setPenColor(color);
-            StdDraw.line(x0, y0, x1, y1);
+
+            StdDraw.line(x0,y0,x1,y1);
             StdDraw.show();
-            StdDraw.pause(400);
-
-            contadorLineas++;
-
-            x0 = x0 + 0.025;
-            y0 = y0 + 0.025;
-            x1 = x1 + 0.025;
-            y1 = y1 + 0.025;
-        }
-    }
-
-    public static void Rebote(){
-
-        double min = -1.0;
-        double max = 1.0;
-
-        StdDraw.setXscale(min,max);
-        StdDraw.setYscale(min,max);
-
-        StdDraw.enableDoubleBuffering();
-
-        double x = min + (max- min) * Math.random();
-        double y = min + (max- min) * Math.random();
-
-        double velocidadX = 0.012;
-        double velocidadY = 0.032;
-
-        while (true){
-
-            if(Math.abs(x + velocidadX) > 1.0){
-                velocidadX  = -velocidadX;
-            }
-
-            if(Math.abs(y + velocidadY) > 1.0){
-                velocidadY  = -velocidadY;
-            }
-
-            x += velocidadX;
-            y += velocidadY;
+            StdDraw.pause(200);
         }
     }
 }
